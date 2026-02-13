@@ -23,8 +23,8 @@ Program to implement the multivariate linear regression model for predicting the
 Developed by:SUJITH KRISHNA C
 RegisterNumber:212225240162
 */
-
-
+```
+```
 #Manual Implementation using Numpy
 import numpy as np
 
@@ -83,9 +83,41 @@ print("Trained Weights (including intercept):", weights)
 y_pred_all = np.dot(X, weights)
 print("Predicted values:", y_pred_all)
 ```
+```
+#Using scikit-learn SGDRegressor
+from sklearn.linear_model import SGDRegressor
+from sklearn.preprocessing import StandardScaler
 
+# Features and target
+X = np.array([
+    [2, 80, 50],
+    [3, 60, 40],
+    [5, 90, 70],
+    [7, 85, 80],
+    [9, 95, 90]
+])
+y = np.array([50, 45, 70, 80, 95])
+
+# Feature scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Create SGD Regressor
+sgd_reg = SGDRegressor(max_iter=1000, learning_rate='invscaling', eta0=0.01, random_state=42)
+sgd_reg.fit(X_scaled, y)
+
+# Coefficients and intercept
+print("Weights (coefficients):", sgd_reg.coef_)
+print("Intercept:", sgd_reg.intercept_)
+
+# Predictions
+y_pred = sgd_reg.predict(X_scaled)
+print("Predicted values:", y_pred)
+```
 ## Output:
 ![multivariate linear regression model for predicting the price of the house and number of occupants in the house](sam.png)
+<img width="876" height="81" alt="image" src="https://github.com/user-attachments/assets/ee91d511-9f6e-4c77-86a9-918c900194d6" />
+<img width="790" height="99" alt="image" src="https://github.com/user-attachments/assets/a68ca389-a839-41a9-8275-e5bc95bfb156" />
 
 
 ## Result:
